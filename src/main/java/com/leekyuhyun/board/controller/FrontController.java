@@ -1,6 +1,7 @@
 package com.leekyuhyun.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.leekyuhyun.board.dao.BoardDao;
+import com.leekyuhyun.board.dto.BoardDto;
 
 /**
  * Servlet implementation class FrontController
@@ -50,7 +52,15 @@ public class FrontController extends HttpServlet {
 			
 			dao.write(writer, subject, content);
 			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("list.do");
+			dispatcher.forward(request, response);
 			
+		} else if(comm.equals("/list.do")) {
+			ArrayList<BoardDto> dtos = dao.list();
+			request.setAttribute("list", dtos);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("list.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
