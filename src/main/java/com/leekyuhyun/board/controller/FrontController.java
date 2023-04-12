@@ -9,12 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.leekyuhyun.board.dao.BoardDao;
+
 /**
  * Servlet implementation class FrontController
  */
 @WebServlet("*.do")		// @ : Annotation (애너테이션, 명시하다)
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	BoardDao dao = new BoardDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,6 +44,12 @@ public class FrontController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("writeForm.jsp");
 			dispatcher.forward(request, response);
 		} else if(comm.equals("/write.do")) {
+			String writer = request.getParameter("writer");
+			String subject = request.getParameter("subject");
+			String content = request.getParameter("content");
+			
+			dao.write(writer, subject, content);
+			
 			
 		}
 	}
