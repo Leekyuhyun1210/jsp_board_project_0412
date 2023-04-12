@@ -148,4 +148,39 @@ public class BoardDao {
 		return dto;
 	}
 	
+	public int delete(String bnum) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "DELETE FROM board WHERE bnum = ?";
+		
+		int dbFlag = 0;
+		
+		try {
+			Class.forName(driverName);
+			conn = DriverManager.getConnection(url, username, password);
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bnum);
+		
+			dbFlag = pstmt.executeUpdate();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return dbFlag;
+	}
+	
 }
