@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <%-- 위에서 3번째 --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,11 +21,12 @@
 		<c:forEach items="${list }" var="dto">
 		<tr>
 			<td>${dto.bnum }</td>
-			<td>${dto.subject }</td>
+			<td><a href="content_view.do?bnum=${dto.bnum }">${dto.subject }</a></td>
 			<td>${dto.writer }</td>
 			<td>${dto.wdate }</td>
 		</tr>
 		</c:forEach>
 	</table>
+	<input type="button" value="글쓰기" onclick="script:window.location.href='write_form.do'">
 </body>
 </html>
