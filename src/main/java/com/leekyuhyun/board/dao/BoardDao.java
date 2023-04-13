@@ -148,23 +148,23 @@ public class BoardDao {
 		return dto;
 	}
 	
-	public int delete(String bnum) {
+	public void delete(String bnum) {
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
 		String sql = "DELETE FROM board WHERE bnum = ?";
 		
-		int dbFlag = 0;
+		int bnumInt = Integer.parseInt(bnum); //문자열을 정수로 변환
 		
 		try {
 			Class.forName(driverName);
 			conn = DriverManager.getConnection(url, username, password);
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, bnum);
+			pstmt.setInt(1, bnumInt);
 		
-			dbFlag = pstmt.executeUpdate();
+			pstmt.executeUpdate();
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -180,7 +180,6 @@ public class BoardDao {
 				e.printStackTrace();
 			}
 		}
-		return dbFlag;
 	}
 	
 }
